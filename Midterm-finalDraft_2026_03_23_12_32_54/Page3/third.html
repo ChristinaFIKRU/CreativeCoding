@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.10/p5.min.js"></script>
+    
+       <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/addons/p5.sound.min.js"></script>
+    
+    <script src="https://unpkg.com/ml5@1/dist/ml5.min.js"></script>
+  <style>
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Times New Roman', Times, serif;
+  background-color: #0d1117;
+  color: #e6edf3;
+}
+/* keeps canvas full screen and can over write on it */
+/* canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: index -1;;
+} */
+
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  padding: 1rem;
+  background-color: #161b22;
+}
+
+nav {
+  display: flex;
+  gap: 20px;
+}
+
+nav a {
+  color: #e6edf3;
+  text-decoration: none;
+}
+
+nav a:hover {
+  color: #20b8a6;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #161b22;
+  min-width: 180px;
+  border-radius: 8px;
+  overflow: hidden;
+  top: 100%;
+  left: 0;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 10px;
+  color: #e6edf3;
+  text-decoration: none;
+}
+
+.dropdown-content a:hover {
+  background-color: #20b8a6;
+  color: black;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.hero {
+  margin-top: 80px;
+  padding: 2rem;
+  text-align: center;
+  background: transparent;
+}
+
+
+.thumb {
+  flex: 0 0 30%;
+  margin-bottom: 1.5rem;
+  border: 2px solid #20b8a6;
+  overflow: hidden;
+  position: relative;
+  border-radius: 8px;
+}
+
+
+.mask {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.thumb:hover .mask {
+  opacity: 1;
+}
+
+.mask a {
+  padding: 8px 15px;
+  background: #20b8a6;
+  color: black;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="main-header">
+  <h1>Creative Coding Portfolio  </h1>
+  <nav>
+    <a href="../intro.html">Home</a>
+<a href="../intro.html#about-text">About</a>
+
+<div class="dropdown">
+  <a href="#">Projects</a>
+  <div class="dropdown-content">
+    <a href="../Page1/F.html">Face + Hand Tracking</a>
+    <a href="../Page2/s.html">Orbit Control</a>
+    <a href="../Page3/third.html">Face Pixels</a>
+    <a href="../Page4/Page4.html">Letters</a>
+    <a href="../Page5/page5.html">Pixel Balls</a>
+    <a href="../Page6/page6.html">Light Ball</a>
+  </div>
+</div>
+
+  </nav>
+</header>
+
+<section class="hero">
+  <h2>Face Pixels</h2>
+    </main>
+
+    <script src="thrid.js"></script>
+  </body>
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Creative Coding Portfolio</title>
+
+<script src="https://cdn.jsdelivr.net/npm/p5@1.11.11/lib/p5.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/p5@1.11.11/lib/addons/p5.sound.min.js"></script>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Times New Roman', Times, serif;
+  background-color: #0d1117;
+  color: #e6edf3;
+}
+/* keeps canvas full screen and can over write on it */
+/* canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+} */
+
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  padding: 1rem;
+  background-color: #161b22;
+}
+
+nav {
+  display: flex;
+  gap: 20px;
+}
+
+nav a {
+  color: #e6edf3;
+  text-decoration: none;
+}
+
+nav a:hover {
+  color: #20b8a6;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #161b22;
+  min-width: 180px;
+  border-radius: 8px;
+  overflow: hidden;
+  top: 100%;
+  left: 0;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 10px;
+  color: #e6edf3;
+  text-decoration: none;
+}
+
+.dropdown-content a:hover {
+  background-color: #20b8a6;
+  color: black;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.hero {
+  margin-top: 80px;
+  padding: 2rem;
+  text-align: center;
+  background: transparent;
+}
+
+.about {
+  display: flex;
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: rgba(22,27,34,0.8);
+  border-radius: 10px;
+}
+
+.about img {
+  width: 180px;
+  border-radius: 50%;
+  border: 3px solid #20b8a6;
+}
+
+.container {
+  width: 90%;
+  margin: 2rem auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.thumb {
+  flex: 0 0 30%;
+  margin-bottom: 1.5rem;
+  border: 2px solid #20b8a6;
+  overflow: hidden;
+  position: relative;
+  border-radius: 8px;
+}
+
+.thumb img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: 0.6s;
+}
+
+.thumb:hover img {
+  transform: scale(1.2);
+}
+
+.mask {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.thumb:hover .mask {
+  opacity: 1;
+}
+
+.mask a {
+  padding: 8px 15px;
+  background: #20b8a6;
+  color: black;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+footer {
+  text-align: center;
+  padding: 15px;
+}
+</style>
+
+</head>
+
+<body>
+
+<header class="main-header">
+  <h1>Creative Coding </h1>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#about-text">About</a>
+
+    <div class="dropdown">
+      <a href="#projects">Projects </a>
+      <div class="dropdown-content">
+        <a href="Page1/F.html">Face + Hand Tracking</a>
+        <a href="Page2/s.html">Orbit Control</a>
+        <a href="Page3/third.html">Face Pixels</a>
+        <a href="Page4/Page4.html">Letters</a>
+        <a href="Page5/page5.html">Pixel Balls</a>
+        <a href="Page6/page6.html">Light Ball</a>
+      </div>
+    </div>
+
+  </nav>
+</header>
+
+<section class="hero">
+  <h2>Creative Coding Portfolio </h2>
+  <p>Interactive projects built with p5.js</p>
+</section>
+
+<div class="about">
+  <div id="about-text">
+    <h2>About Me </h2>
+    <p>
+      Hi! I'm Christina, a sophomore at NYU exploring creative coding.
+      I enjoy combining art and technology to build interactive experiences.
+    </p>
+  </div>
+  <img src="./ab-me/M3.jpeg">
+</div>
+
+<section id="projects">
+  <h2 style="text-align:center;">My Projects </h2>
+
+  <div class="container">
+
+    <div class="thumb">
+      <img src="./ab-me/face.png">
+      <div class="mask">
+        <h3>Face Tracking</h3>
+        <a href="Page1/F.html">View</a>
+      </div>
+    </div>
+
+    <div class="thumb">
+      <img src="./ab-me/orbit.png">
+      <div class="mask">
+        <h3>Orbit Control</h3>
+        <a href="Page2/s.html">View</a>
+      </div>
+    </div>
+
+    <div class="thumb">
+      <img src="./ab-me/facepixel.png">
+      <div class="mask">
+        <h3>Face Pixels</h3>
+        <a href="Page3/third.html">View</a>
+      </div>
+    </div>
+
+    <div class="thumb">
+      <img src="./ab-me/letter.png">
+      <div class="mask">
+        <h3>Letters</h3>
+        <a href="Page4/Page4.html">View</a>
+      </div>
+    </div>
+
+    <div class="thumb">
+      <img src="./ab-me/pixel.png">
+      <div class="mask">
+        <h3>Pixel Balls</h3>
+        <a href="Page5/page5.html">View</a>
+      </div>
+    </div>
+
+    <div class="thumb">
+      <img src="./ab-me/light.png">
+      <div class="mask">
+        <h3>Rotating Light Balls</h3>
+        <a href="Page6/page6.html">View</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Creative Coding Portfolio </p>
+</footer>
+
+<script src="intro.js"></script>
+
+</body>
+</html>
