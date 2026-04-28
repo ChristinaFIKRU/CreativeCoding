@@ -63,4 +63,8 @@ function worm(wormWidth, offset, c1, c2) {
 /* keeps canvas full screen */
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 99d0fd9 (js sketches)

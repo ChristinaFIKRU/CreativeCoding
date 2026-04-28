@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>HandSynth (Fixed)</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/addons/p5.sound.min.js"></script>
+<script src="https://unpkg.com/ml5@0.12.2/dist/ml5.min.js"></script>
+
+<style>
+body { margin:0; background:black; color:white; font-family:monospace; }
+#start {
+  position:fixed; inset:0; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; background:black;
+}
+button { padding:12px 24px; font-size:16px; }
+</style>
+</head>
+
+<body>
+
+<div id="start">
+  <h1>HandSynth</h1>
+  <button onclick="start()">Start Camera</button>
+  <div id="err"></div>
+</div>
+
+<script>
+let started = false;
+
+async function start() {
+  try {
+    await navigator.mediaDevices.getUserMedia({ video:true });
+    document.getElementById("start").style.display = "none";
+    new p5(sketch);
+  } catch(e) {
+    document.getElementById("err").innerText = e.message;
+  }
+}
+
+const sketch = (p) => {
+
+  let capture;
+  let handpose;
+  let hands = [];
+  let mlStarted = false;
+
+  let osc;
+
+  function maybeStartML() {
+    if (mlStarted) return;
+
+    const vid = capture.elt;
+    if (!vid || vid.readyState < 2) return;
+
+    console.log("ML STARTED");
+
+    mlStarted = true;
+
+    handpose.detectStart(vid, results => {
+      hands = results;
+    });
+  }
+
+  p.setup = () => {
+    p.createCanvas(window.innerWidth, window.innerHeight);
+
+    capture = p.createCapture(p.VIDEO);
+    capture.size(320,240);
+    capture.hide();
+
+    capture.elt.setAttribute('playsinline','');
+    capture.elt.muted = true;
+    capture.elt.autoplay = true;
+
+    handpose = ml5.handpose();
+
+    osc = new p5.Oscillator('sine');
+    osc.start();
+    osc.amp(0);
+  };
+
+  p.draw = () => {
+    p.background(0);
+
+    maybeStartML();
+
+    // draw camera
+    if (capture.elt.readyState >= 2) {
+      p.push();
+      p.translate(p.width,0);
+      p.scale(-1,1);
+      p.image(capture,0,0,p.width,p.height);
+      p.pop();
+    } else {
+      p.text("waiting camera...",20,20);
+      return;
+    }
+
+    if (!mlStarted) {
+      p.text("loading ML...",20,40);
+      return;
+    }
+
+    if (hands.length === 0) {
+      p.fill(255,0,0);
+      p.textSize(20);
+      p.text("NO HAND DETECTED",20,40);
+      osc.amp(0);
+      return;
+    }
+
+    const hand = hands[0];
+
+    // draw keypoints
+    for (let kp of hand.landmarks) {
+      p.fill(0,255,0);
+      p.noStroke();
+      p.circle(
+        p.width - kp[0] * (p.width/320),
+        kp[1] * (p.height/240),
+        10
+      );
+    }
+
+    // thumb-tip (4) to index-tip (8)
+    let t4 = hand.landmarks[4];
+    let t8 = hand.landmarks[8];
+
+    let d = p.dist(t4[0], t4[1], t8[0], t8[1]);
+
+    // map to frequency
+    let freq = p.map(d, 20, 200, 200, 800);
+    freq = p.constrain(freq, 200, 800);
+
+    osc.freq(freq);
+    osc.amp(0.3);
+
+    p.fill(255);
+    p.textSize(18);
+    p.text("freq: " + Math.round(freq),20,70);
+  };
+
+  p.windowResized = () => {
+    p.resizeCanvas(window.innerWidth, window.innerHeight);
+  };
+};
+</script>
+
+</body>
+</html>
