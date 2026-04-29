@@ -34,6 +34,9 @@ function handModelReady() {
 
 function setup() {
   createCanvas(640, 480);
+    colorMode(HSB, 360, 100, 100);
+
+  
 
   video = createCapture(VIDEO, { flipped: true });
   video.size(640, 480);
@@ -130,10 +133,17 @@ function draw() {
   osc2.amp(vol);
 
   // ── Recursive tree — drawn BEFORE posterize so it survives the filter ──
+  for (let x = 50; x < width; x += 80) {
   push();
-  translate(width / 2, height);
+  translate(x, height);
   branch(branchLen);
   pop();
+}
+  
+  // push();
+  // translate(width / 2, height);
+  // branch(branchLen);
+  // pop();
 
   // ── Post-processing — AFTER tree so tree is included ──────
   // filter(POSTERIZE, posterizeAmount);
@@ -141,13 +151,17 @@ function draw() {
 
 function branch(len) {
   strokeWeight(map(len, 2, 120, 1, 10));
-  stroke(255, 255, 255, 180);
+    // strokeWeight(map(len, 3, 130, 2, 20));
+
+  stroke(219,181,55);
+  // stroke(255, 255, 255, 180);
   line(0, 0, 0, -len);
   translate(0, -len);
   len *= 0.67;
   if (len > 4) {
+        push(); rotate(-treeAngle); branch(len); pop();
+
     push(); rotate(treeAngle);  branch(len); pop();
-    push(); rotate(-treeAngle); branch(len); pop();
   }
 }
 
